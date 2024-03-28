@@ -1,0 +1,26 @@
+#[general]
+#query = "query_node_.*"
+
+[store]
+[store.primary]
+connection = "postgresql://dexswap:${PGPASSWORD}@localhost:5432/dexswap"
+pool_size = 10
+
+[deployment]
+# Studio subgraphs
+[[deployment.rule]]
+match = { network = "ctexchain" }
+indexers = [ "default" ]
+
+[[deployment.rule]]
+indexers = [ "default" ]
+
+[chains]
+ingestor = "default"
+
+[chains.ctexchain]
+shard = "primary"
+provider = [
+  { label = "ctexchain", url="https://mainnet-rpc.ctexscan.com", features = [ "archive", "traces" ] }
+]
+
